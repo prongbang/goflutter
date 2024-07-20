@@ -19,45 +19,15 @@ typedef struct { const char *p; ptrdiff_t n; } _GoString_;
 /* Start of preamble from import "C" comments.  */
 
 
-#line 13 "bridge.gen.go"
+#line 13 "example.gen.go"
 
 #include <stdlib.h>
 #include <stdint.h>
 
 typedef struct {
-	int x;
-	int y;
-	void* name;
-} fgb_vt_point;
-
-typedef struct {
 	int res;
 	void* err;
 } fgb_ret_add;
-
-typedef struct {
-	fgb_vt_point res;
-	void* err;
-} fgb_ret_add_points;
-
-typedef struct {
-	int res;
-	void* err;
-} fgb_ret_add_error;
-
-typedef struct {
-	uintptr_t res;
-	void* err;
-} fgb_ret_new_obj;
-
-typedef struct {
-	void* err;
-} fgb_ret_modify_obj;
-
-typedef struct {
-	void* res;
-	void* err;
-} fgb_ret_format_obj;
 
 #line 1 "cgo-generated-wrapper"
 
@@ -115,25 +85,9 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
-extern fgb_vt_point fgbempty_point();
 extern fgb_ret_add fgb_add(int arg_a, int arg_b);
 extern void fgbasync_add(int arg_a, int arg_b, GoInt64 fgbPort);
 extern fgb_ret_add fgbasyncres_add(GoUint64 h);
-extern fgb_ret_add_points fgb_add_points(fgb_vt_point arg_a, fgb_vt_point arg_b);
-extern void fgbasync_add_points(fgb_vt_point arg_a, fgb_vt_point arg_b, GoInt64 fgbPort);
-extern fgb_ret_add_points fgbasyncres_add_points(GoUint64 h);
-extern fgb_ret_add_error fgb_add_error(int arg_a, int arg_b);
-extern void fgbasync_add_error(int arg_a, int arg_b, GoInt64 fgbPort);
-extern fgb_ret_add_error fgbasyncres_add_error(GoUint64 h);
-extern fgb_ret_new_obj fgb_new_obj(void* arg_name, int arg_other);
-extern void fgbasync_new_obj(void* arg_name, int arg_other, GoInt64 fgbPort);
-extern fgb_ret_new_obj fgbasyncres_new_obj(GoUint64 h);
-extern fgb_ret_modify_obj fgb_modify_obj(uintptr_t arg_o);
-extern void fgbasync_modify_obj(uintptr_t arg_o, GoInt64 fgbPort);
-extern fgb_ret_modify_obj fgbasyncres_modify_obj(GoUint64 h);
-extern fgb_ret_format_obj fgb_format_obj(uintptr_t arg_o);
-extern void fgbasync_format_obj(uintptr_t arg_o, GoInt64 fgbPort);
-extern fgb_ret_format_obj fgbasyncres_format_obj(GoUint64 h);
 
 #ifdef __cplusplus
 }

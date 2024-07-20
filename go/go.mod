@@ -1,6 +1,6 @@
 module com.github.com/prongbang/example
 
-go 1.22.0
+go 1.22.5
 
 require (
 	github.com/csnewman/flutter-go-bridge v0.2.0 // indirect

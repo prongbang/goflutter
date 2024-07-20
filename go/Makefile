@@ -1,19 +1,37 @@
+setup:
+	go get github.com/csnewman/flutter-go-bridge/parser@v0.2.0
+	go get github.com/csnewman/flutter-go-bridge/generator@v0.2.0
+	go get github.com/csnewman/flutter-go-bridge/cmd/flutter-go-bridge@v0.2.0
+
+ndk-list:
+	ls ~/Library/Android/sdk/ndk
+
+sdk-list:
+	ls /Library/Developer/CommandLineTools/SDKs
+
+env:
+	export CGO_LDFLAGS="-L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib"
+	export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
+    export ANDROID_HOME=$HOME/Library/Android/sdk
+    export ANDROID_NDK_HOME=$HOME/Library/Android/sdk/ndk/23.1.7779620
+	export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk
+
+create:
+	mkdir go && cd go && go mod init com.github.com/prongbang/example && mkdir bridge
+
 gen:
 	go generate
 
-build:
-	sh build.sh
+chmod:
+	chmod -x build-ios.sh
+	chmod -x build-android.sh
+	chmod -x pack.sh
+
+build-ios:
+	sh build-ios.sh example
+
+build-android:
+	sh build-android.sh example
 
 pack:
-	mkdir -p ../android/src/main/jniLibs/arm64-v8a
-	mkdir -p ../android/src/main/jniLibs/armeabi-v7a
-	mkdir -p ../android/src/main/jniLibs/x86
-	mkdir -p ../android/src/main/jniLibs/x86_64
-	cp -r dist/android/jniLibs/arm64-v8a/libexample.so ../android/src/main/jniLibs/arm64-v8a/libexample.so
-	cp -r dist/android/jniLibs/armeabi-v7a/libexample.so ../android/src/main/jniLibs/armeabi-v7a/libexample.so
-	cp -r dist/android/jniLibs/x86/libexample.so ../android/src/main/jniLibs/x86/libexample.so
-	cp -r dist/android/jniLibs/x86_64/libexample.so ../android/src/main/jniLibs/x86_64/libexample.so
-	cp -r dist/ios/universal/libexample.a ../ios/Classes/libexample.a
-	cp -r dist/ios/libexample-arm64.a ../ios/Classes/libexample.a
-	cp -r dist/ios/libexample-arm64.h ../ios/Classes/libexample.h
-	cp -r dist/ios/libexample-arm64.h ./libexample.h
+	sh pack.sh example

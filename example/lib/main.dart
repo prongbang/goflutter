@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
+import 'package:goflutter/example.gen.dart';
 
-import 'package:flutter/services.dart';
-import 'package:goflutter/bridge.gen.dart';
 import 'package:goflutter/goflutter.dart';
 
 void main() {
@@ -27,7 +25,7 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text(_bridge.formatObj(_bridge.newObj('example', 1))),
+          child: Text(_bridge.add(1, 2).toString()),
         ),
       ),
     );
