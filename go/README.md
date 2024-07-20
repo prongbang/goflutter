@@ -64,10 +64,14 @@ go generate
 
 ## 6. Automate library building by integrating into flutter build.
 
-https://github.com/csnewman/flutter-go-bridge/tree/master?tab=readme-ov-file#platform-building
-
 - Manual building
 
 ```shell
-CGO_ENABLED=1 go build -buildmode=c-shared -o libexample.so bridge/bridge.gen.go
+make gen
+make build
+make pack
 ```
+
+### Documents
+
+https://github.com/csnewman/flutter-go-bridge/tree/master?tab=readme-ov-file#platform-building
