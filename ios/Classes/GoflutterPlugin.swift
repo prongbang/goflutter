@@ -16,4 +16,9 @@ public class GoflutterPlugin: NSObject, FlutterPlugin {
       result(FlutterMethodNotImplemented)
     }
   }
+
+  public func dummyMethodToEnforceBundling() {
+      // This will never be executed
+      Hello();
+  }
 }

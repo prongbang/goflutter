@@ -61,7 +61,7 @@ for ARCH in "${ANDROID_ARCHS[@]}"; do
     mkdir -p $ARCH_OUTPUT_DIR
 
     # Build the shared library
-    CGO_ENABLED=1 GOOS=android go build -buildmode=c-shared -o "$ARCH_OUTPUT_DIR/$LIB_NAME.so" bridge/${NAME}.gen.go
+    CGO_ENABLED=1 GOOS=android go build -buildmode=c-shared -o "$ARCH_OUTPUT_DIR/$LIB_NAME.so" ${NAME}.go
 done
 
 echo "Build completed. Libraries are in the $ANDROID_OUTPUT_DIR directories."

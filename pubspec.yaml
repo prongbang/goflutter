@@ -24,6 +24,14 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
+ffigen:
+  name: HelloBinding
+  description: Bindings to hello.
+  output: 'lib/hello.binding.dart'
+  headers:
+    entry-points:
+      - 'go/libhello.h'
+
 # The following section is specific to Flutter packages.
 flutter:
   # This section identifies this Flutter project as a plugin project.

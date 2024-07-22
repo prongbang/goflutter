@@ -1,4 +1,4 @@
-module com.github.com/prongbang/example
+module com.github.com/prongbang/hello
 
 go 1.22.5
 

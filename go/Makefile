@@ -1,8 +1,3 @@
-setup:
-	go get github.com/csnewman/flutter-go-bridge/parser@v0.2.0
-	go get github.com/csnewman/flutter-go-bridge/generator@v0.2.0
-	go get github.com/csnewman/flutter-go-bridge/cmd/flutter-go-bridge@v0.2.0
-
 ndk-list:
 	ls ~/Library/Android/sdk/ndk
 
@@ -13,14 +8,12 @@ env:
 	export CGO_LDFLAGS="-L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib"
 	export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
     export ANDROID_HOME=$HOME/Library/Android/sdk
-    export ANDROID_NDK_HOME=$HOME/Library/Android/sdk/ndk/23.1.7779620
-	export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk
 
 create:
-	mkdir go && cd go && go mod init com.github.com/prongbang/example && mkdir bridge
+	mkdir go && cd go && go mod init com.github.com/prongbang/hello
 
-gen:
-	go generate
+gen-header:
+	CGO_ENABLED=1 GOOS=darwin go build -buildmode=c-archive -o libhello.a hello.go
 
 chmod:
 	chmod -x build-ios.sh
@@ -28,10 +21,12 @@ chmod:
 	chmod -x pack.sh
 
 build-ios:
-	sh build-ios.sh example
+	export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk
+	sh build-ios.sh hello
 
 build-android:
-	sh build-android.sh example
+	export ANDROID_NDK_HOME=$HOME/Library/Android/sdk/ndk/23.1.7779620
+	sh build-android.sh hello
 
 pack:
-	sh pack.sh example
+	sh pack.sh hello

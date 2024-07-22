@@ -36,7 +36,7 @@ for ARCH in "${IOS_ARCHS[@]}"; do
     export CC
 
     # Build the static library
-    CGO_ENABLED=1 GOOS=darwin go build -buildmode=c-archive -o "$IOS_OUTPUT_DIR/$LIB_NAME-$ARCH.a" bridge/${NAME}.gen.go
+    CGO_ENABLED=1 GOOS=darwin go build -buildmode=c-archive -o "$IOS_OUTPUT_DIR/$LIB_NAME-$ARCH.a" ${NAME}.go
 done
 
 # Combine iOS static libraries into a universal library
