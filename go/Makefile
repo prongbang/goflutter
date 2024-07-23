@@ -30,6 +30,9 @@ build-ios:
 	sh build-ios.sh example
 	sh build-framework.sh example
 
+build-macos:
+	sh build-macos.sh example
+
 build-android:
 	export ANDROID_NDK_HOME=$HOME/Library/Android/sdk/ndk/23.1.7779620
 	sh build-android.sh example
