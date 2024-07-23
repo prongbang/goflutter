@@ -11,6 +11,5 @@ cp -r dist/android/jniLibs/armeabi-v7a/${LIB_NAME}.so ../android/src/main/jniLib
 cp -r dist/android/jniLibs/x86/${LIB_NAME}.so ../android/src/main/jniLibs/x86/${LIB_NAME}.so
 cp -r dist/android/jniLibs/x86_64/${LIB_NAME}.so ../android/src/main/jniLibs/x86_64/${LIB_NAME}.so
 cp -r dist/ios/universal/${LIB_NAME}.a ../ios/Classes/${LIB_NAME}.a
-cp -r dist/ios/${LIB_NAME}-arm64.a ../ios/Classes/${LIB_NAME}.a
 cp -r dist/ios/${LIB_NAME}-arm64.h ../ios/Classes/${LIB_NAME}.h
 cp -r dist/ios/${LIB_NAME}-arm64.h ./${LIB_NAME}.h

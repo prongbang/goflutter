@@ -29,6 +29,10 @@ typedef struct {
 	void* err;
 } fgb_ret_add;
 
+typedef struct {
+	void* err;
+} fgb_ret_enforce_binding;
+
 #line 1 "cgo-generated-wrapper"
 
 
@@ -88,6 +92,9 @@ extern "C" {
 extern fgb_ret_add fgb_add(int arg_a, int arg_b);
 extern void fgbasync_add(int arg_a, int arg_b, GoInt64 fgbPort);
 extern fgb_ret_add fgbasyncres_add(GoUint64 h);
+extern fgb_ret_enforce_binding fgb_enforce_binding();
+extern void fgbasync_enforce_binding(GoInt64 fgbPort);
+extern fgb_ret_enforce_binding fgbasyncres_enforce_binding(GoUint64 h);
 
 #ifdef __cplusplus
 }

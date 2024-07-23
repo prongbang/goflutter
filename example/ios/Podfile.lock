@@ -1,0 +1,28 @@
+PODS:
+  - Flutter (1.0.0)
+  - goflutter (0.0.1):
+    - Flutter
+  - integration_test (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - goflutter (from `.symlinks/plugins/goflutter/ios`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  goflutter:
+    :path: ".symlinks/plugins/goflutter/ios"
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+
+SPEC CHECKSUMS:
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  goflutter: f4534f67cf85c6e596bcc8b4bd764b8051f016e2
+  integration_test: 13825b8a9334a850581300559b8839134b124670
+
+PODFILE CHECKSUM: e829cb54b71354afed8940d04720ff95a96c8441
+
+COCOAPODS: 1.15.2

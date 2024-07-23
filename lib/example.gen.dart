@@ -21,6 +21,10 @@ abstract interface class Bridge {
   int add(int a, int b);
 
   Future<int> addAsync(int a, int b);
+
+  void enforceBinding();
+
+  Future<void> enforceBindingAsync();
 }
 
 @ffi.Native<ffi.Pointer<ffi.Void> Function(ffi.Pointer<ffi.Void>)>(symbol: "fgbinternal_init")
@@ -70,6 +74,19 @@ external void _fgbAsyncAdd(int arg0, int arg1, int argPtr);
 @ffi.Native<_FgbRetAdd Function(ffi.Uint64)>(symbol: "fgbasyncres_add")
 external _FgbRetAdd _fgbAsyncResAdd(int arg0);
 
+final class _FgbRetEnforceBinding extends ffi.Struct {
+  external ffi.Pointer<ffi.Void> err;
+}
+
+@ffi.Native<_FgbRetEnforceBinding Function()>(symbol: "fgb_enforce_binding")
+external _FgbRetEnforceBinding _fgbEnforceBinding();
+
+@ffi.Native<ffi.Void Function(ffi.Uint64)>(symbol: "fgbasync_enforce_binding")
+external void _fgbAsyncEnforceBinding(int argPtr);
+
+@ffi.Native<_FgbRetEnforceBinding Function(ffi.Uint64)>(symbol: "fgbasyncres_enforce_binding")
+external _FgbRetEnforceBinding _fgbAsyncResEnforceBinding(int arg0);
+
 final class _FfiBridge implements Bridge {
   late _GoAllocator _allocator;
   late ffi.NativeFinalizer _pinFinalizer;
@@ -115,6 +132,30 @@ final class _FfiBridge implements Bridge {
       throw BridgeException(errMsg);
     }
     return res.res;
+  }
+
+  @override
+  void enforceBinding() {
+    _processEnforceBinding(_fgbEnforceBinding());
+  }
+
+  @override
+  Future<void> enforceBindingAsync() async {
+    var __DartRecv__ = ReceivePort('AsyncRecv(enforceBinding)');
+    _fgbAsyncEnforceBinding(__DartRecv__.sendPort.nativePort);
+    var __DartMsg__ = await __DartRecv__.first;
+    __DartRecv__.close();
+    _processEnforceBinding(_fgbAsyncResEnforceBinding(__DartMsg__[0]));
+  }
+
+  void _processEnforceBinding(_FgbRetEnforceBinding res) {
+    if (res.err != ffi.nullptr) {
+      var errPtr = ffi.Pointer<Utf8>.fromAddress(res.err.address);
+      var errMsg = errPtr.toDartString(); 
+      _allocator.free(errPtr);
+
+      throw BridgeException(errMsg);
+    }
   }
 
 

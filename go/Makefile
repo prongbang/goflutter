@@ -13,8 +13,6 @@ env:
 	export CGO_LDFLAGS="-L/opt/homebrew/opt/llvm/lib -Wl,-rpath,/opt/homebrew/opt/llvm/lib"
 	export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
     export ANDROID_HOME=$HOME/Library/Android/sdk
-    export ANDROID_NDK_HOME=$HOME/Library/Android/sdk/ndk/23.1.7779620
-	export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX14.sdk
 
 create:
 	mkdir go && cd go && go mod init com.github.com/prongbang/example && mkdir bridge
@@ -28,9 +26,11 @@ chmod:
 	chmod -x pack.sh
 
 build-ios:
+	export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk
 	sh build-ios.sh example
 
 build-android:
+	export ANDROID_NDK_HOME=$HOME/Library/Android/sdk/ndk/23.1.7779620
 	sh build-android.sh example
 
 pack:

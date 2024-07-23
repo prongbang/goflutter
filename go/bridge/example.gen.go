@@ -18,6 +18,10 @@ typedef struct {
 	int res;
 	void* err;
 } fgb_ret_add;
+
+typedef struct {
+	void* err;
+} fgb_ret_enforce_binding;
 */
 import "C"
 
@@ -90,4 +94,46 @@ func fgbasync_add(arg_a C.int, arg_b C.int, fgbPort int64) {
 func fgbasyncres_add(h uint64) C.fgb_ret_add {
 	ptr := uintptr(h)
 	return runtime.GetPin[C.fgb_ret_add](ptr)
+}
+
+//export fgb_enforce_binding
+func fgb_enforce_binding() (resw C.fgb_ret_enforce_binding) {
+	defer func() {
+		r := recover()
+		if r == nil {
+			return
+		}
+
+		resw = C.fgb_ret_enforce_binding{
+			err: unsafe.Pointer(C.CString(fmt.Sprintf("panic: %v", r))),
+		}
+	}()
+	
+	orig.EnforceBinding()
+	
+
+	return C.fgb_ret_enforce_binding{
+	}
+}
+
+//export fgbasync_enforce_binding
+func fgbasync_enforce_binding(fgbPort int64) {
+	go func() {
+		value := fgb_enforce_binding()
+		ptr := runtime.Pin(value)
+		h := uint64(ptr)
+
+		sent := runtime.Send(fgbPort, []uint64{h}, func() {
+			runtime.FreePin(ptr)
+		})
+		if !sent {
+			runtime.FreePin(ptr)
+		}
+	}()
+}
+
+//export fgbasyncres_enforce_binding
+func fgbasyncres_enforce_binding(h uint64) C.fgb_ret_enforce_binding {
+	ptr := uintptr(h)
+	return runtime.GetPin[C.fgb_ret_enforce_binding](ptr)
 }
