@@ -28,6 +28,7 @@ chmod:
 build-ios:
 	export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX13.sdk
 	sh build-ios.sh example
+	sh build-framework.sh example
 
 build-android:
 	export ANDROID_NDK_HOME=$HOME/Library/Android/sdk/ndk/23.1.7779620
